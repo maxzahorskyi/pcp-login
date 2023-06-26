@@ -1,11 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
+import { globalApi } from '../store/api/globalApi';
 import rootReducer from './reducers';
 // ...
 
 const store = configureStore({
   reducer: rootReducer,
   devTools: process.env.NODE_ENV !== 'production',
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat([]),
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware({ serializableCheck: false }).concat([globalApi.middleware]),
 });
 
 export default store;
