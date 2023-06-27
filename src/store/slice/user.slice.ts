@@ -18,10 +18,10 @@ const userSlice = createSlice({
       localStorage.setItem('token', action.payload.accessToken);
       localStorage.setItem('user', JSON.stringify(action.payload.user));
     },
-    logoutUser(state) {
-      state = initialState;
+    logoutUser() {
       localStorage.removeItem('token');
       localStorage.removeItem('user');
+      return initialState;
     },
   },
 });
