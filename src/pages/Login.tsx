@@ -1,8 +1,8 @@
-import { Box, Typography } from '@mui/material';
+import { Box } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { Navigate } from 'react-router';
-import { LogoIcon } from '../assets/icons/logo.icon';
 import LoginForm from '../components/LoginForm/LoginForm';
+import PageTitle from '../components/PageTitle/PageTitle';
 import PageLayout from '../layout/page.layout';
 import { getUser } from '../store/slice/user.slice';
 
@@ -15,12 +15,12 @@ export default function Login() {
   return (
     <PageLayout>
       <Box sx={{ maxWidth: '636px' }}>
-        <LogoIcon />
-        <Typography variant="h2" mt={4} mb={4.5} sx={{ fontSize: '56px', letterSpacing: '-0.5px' }}>
+        <PageTitle>
           Welcome to the
           <br />
           Product Security Platform
-        </Typography>
+        </PageTitle>
+
         <LoginForm />
       </Box>
     </PageLayout>
