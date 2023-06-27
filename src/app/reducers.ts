@@ -1,4 +1,4 @@
-import { globalApi } from '../store/api/globalApi';
+import { globalApi } from '../store/api/global.api';
 import notificationReducer from '../store/slice/notification.slice';
 import userReducer from '../store/slice/user.slice';
 

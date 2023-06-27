@@ -1,5 +1,5 @@
 import { INotification } from '../../types/notification.types';
-import { globalApi } from './globalApi';
+import { globalApi } from './global.api';
 
 export const notificationApi = globalApi.injectEndpoints({
   endpoints: (build) => ({

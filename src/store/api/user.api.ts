@@ -1,5 +1,5 @@
 import { IUser } from '../../types/user.types';
-import { globalApi } from './globalApi';
+import { globalApi } from './global.api';
 
 export const userApi = globalApi.injectEndpoints({
   endpoints: (build) => ({
