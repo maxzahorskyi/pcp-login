@@ -1,4 +1,4 @@
-import { Container } from '@mui/material';
+import { Container, useMediaQuery } from '@mui/material';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { PrivateRoute } from '../components/PrivateRoute/PrivateRoute';
 import ContactUs from '../pages/ContactUs';
@@ -8,13 +8,14 @@ import Login from '../pages/Login';
 import PrivacyPolicy from '../pages/PrivacyPolicy';
 import Terms from '../pages/Terms';
 
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 import bg from '../assets/images/login-bg.png';
 import { setUser } from '../store/slice/user.slice';
 
 function App() {
   const dispatch = useDispatch();
+  const isMedium = useMediaQuery('(max-width:900px)');
 
   useEffect(() => {
     const lsToken = localStorage.getItem('token');
@@ -23,6 +24,17 @@ function App() {
       dispatch(setUser({ user: JSON.parse(lsUser), accessToken: lsToken }));
     }
   }, [dispatch]);
+
+  const bgImage = useMemo(() => {
+    return isMedium
+      ? {}
+      : {
+          backgroundImage: `url(${bg})`,
+          backgroundSize: '62%',
+          backgroundRepeat: 'no-repeat',
+          backgroundPosition: 'right',
+        };
+  }, [isMedium]);
 
   return (
     <Container
@@ -33,10 +45,7 @@ function App() {
         minHeight: '100vh',
         px: 2,
         py: 5,
-        backgroundImage: `url(${bg})`,
-        backgroundSize: '62%',
-        backgroundRepeat: 'no-repeat',
-        backgroundPosition: 'right',
+        ...bgImage,
       }}
     >
       <BrowserRouter>

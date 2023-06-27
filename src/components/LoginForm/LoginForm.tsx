@@ -1,6 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
-import { Box, InputAdornment, InputLabel, useTheme } from '@mui/material';
+import { Box, InputAdornment, InputLabel, useMediaQuery, useTheme } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { Button, TextField, TextLink } from '../../app/app.styled';
@@ -12,6 +12,8 @@ import { LoginData } from './login.types';
 export default function LoginForm() {
   const theme = useTheme();
   const dispatch = useDispatch();
+  const isMobile = useMediaQuery('(max-width:600px)');
+  const isMedium = useMediaQuery('(max-width:900px)');
 
   const [login] = useLoginMutation();
 
@@ -45,7 +47,12 @@ export default function LoginForm() {
   };
 
   return (
-    <Box component="form" name="login" onSubmit={handleSubmit(onSubmit)} sx={{ display: 'flex', flexDirection: 'column', maxWidth: '400px' }}>
+    <Box
+      component="form"
+      name="login"
+      onSubmit={handleSubmit(onSubmit)}
+      sx={{ display: 'flex', flexDirection: 'column', maxWidth: isMobile ? '100%' : '400px', mx: isMedium ? 'auto' : 0 }}
+    >
       <InputLabel sx={{ fontSize: '14px', ml: 2, color: errors.email ? theme.palette.error.main : theme.palette.text.primary }}>Email</InputLabel>
       <TextField
         variant="outlined"
