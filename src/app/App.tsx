@@ -8,9 +8,22 @@ import Login from '../pages/Login';
 import PrivacyPolicy from '../pages/PrivacyPolicy';
 import Terms from '../pages/Terms';
 
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import bg from '../assets/images/login-bg.png';
+import { setUser } from '../store/slice/user.slice';
 
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const lsToken = localStorage.getItem('token');
+    const lsUser = localStorage.getItem('user');
+    if (lsToken && lsUser) {
+      dispatch(setUser({ user: JSON.parse(lsUser), accessToken: lsToken }));
+    }
+  }, [dispatch]);
+
   return (
     <Container
       maxWidth="xl"

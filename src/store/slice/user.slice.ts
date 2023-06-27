@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSelector, createSlice } from '@reduxjs/toolkit';
 import { IUser } from '../../types/user.types';
 
 const initialState: IUser = {
@@ -15,12 +15,19 @@ const userSlice = createSlice({
       state.userId = action.payload.user.id;
       state.email = action.payload.user.email;
       state.token = action.payload.accessToken;
+      localStorage.setItem('token', action.payload.accessToken);
+      localStorage.setItem('user', JSON.stringify(action.payload.user));
     },
     logoutUser(state) {
       state = initialState;
+      localStorage.removeItem('token');
+      localStorage.removeItem('user');
     },
   },
 });
 export const { setUser, logoutUser } = userSlice.actions;
+
+const selectSelf = (state: { user: IUser }) => state.user;
+export const getUser = createSelector(selectSelf, (state) => state);
 
 export default userSlice.reducer;
