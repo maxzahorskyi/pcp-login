@@ -1,29 +1,30 @@
-import BoxMui from '@mui/material/Box';
-import CardMediaMui from '@mui/material/CardMedia';
+import { Button as ButtonMUI, TextField as TextFieldMUI } from '@mui/material';
 import { styled } from '@mui/material/styles';
+import { NavLink } from 'react-router-dom';
 
-const Box = styled(BoxMui)(() => ({
-  position: 'fixed',
-  top: 0,
-  right: 0,
-  bottom: 0,
-  left: 0,
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
+const Button = styled(ButtonMUI)(() => ({
+  fontSize: '16px',
+  textTransform: 'none',
+  ':hover': {
+    backgroundColor: '#846e54eb',
+  },
 }));
 
-const CardMedia = styled(CardMediaMui)(({ theme }) => {
-  console.log(theme);
-  return {
-    objectFit: 'unset',
-    width: 160,
-    marginTop: theme.spacing(2),
-    display: 'inline-block',
-  };
-}) as typeof CardMediaMui;
+const TextField = styled(TextFieldMUI)(() => ({
+  input: {
+    padding: '12px 16px',
+  },
+}));
 
-export default {
-  CardMedia,
-  Box,
-};
+const TextLink = styled(NavLink)(({ theme }) => ({
+  fontSize: '14px',
+  fontWeight: 500,
+  letterSpacing: 0.1,
+  color: theme.palette.text.primary,
+  textDecoration: 'none',
+  ':hover': {
+    textDecoration: 'underline',
+  },
+}));
+
+export { Button, TextLink, TextField };
