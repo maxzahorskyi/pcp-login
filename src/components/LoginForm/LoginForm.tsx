@@ -1,11 +1,13 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Box, InputLabel } from '@mui/material';
+import { Box, InputLabel, useTheme } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import { Button, TextField, TextLink } from '../../app/app.styled';
 import { schema } from './login.schema';
 import { LoginData } from './login.types';
 
 export default function LoginForm() {
+  const theme = useTheme();
+
   const defaultValues = {
     email: '',
     password: '',
@@ -39,11 +41,11 @@ export default function LoginForm() {
 
   return (
     <Box component="form" name="login" onSubmit={handleSubmit(onSubmit)} sx={{ display: 'flex', flexDirection: 'column', maxWidth: '400px' }}>
-      <InputLabel sx={{ fontSize: '14px', ml: 2 }}>Email</InputLabel>
-      <TextField variant="outlined" sx={{ mb: 3.5 }} />
+      <InputLabel sx={{ fontSize: '14px', ml: 2, color: errors.email ? theme.palette.error.main : theme.palette.text.primary }}>Email</InputLabel>
+      <TextField variant="outlined" sx={{ mb: 3.5 }} {...register('email')} error={!!errors.email} helperText={errors.email?.message} />
 
-      <InputLabel sx={{ fontSize: '14px', ml: 2 }}>Password</InputLabel>
-      <TextField type="password" variant="outlined" />
+      <InputLabel sx={{ fontSize: '14px', ml: 2, color: errors.password ? theme.palette.error.main : theme.palette.text.primary }}>Password</InputLabel>
+      <TextField type="password" variant="outlined" {...register('password')} error={!!errors.password} helperText={errors.password?.message} />
 
       <TextLink to="/forgot" sx={{ px: 0.5, py: 0.25 }}>
         Forgot your password?
