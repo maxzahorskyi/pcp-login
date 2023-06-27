@@ -2,13 +2,16 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 import { Box, InputAdornment, InputLabel, useTheme } from '@mui/material';
 import { useForm } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
 import { Button, TextField, TextLink } from '../../app/app.styled';
 import { useLoginMutation } from '../../store/api/auth.api';
+import { setUser } from '../../store/slice/user.slice';
 import { schema } from './login.schema';
 import { LoginData } from './login.types';
 
 export default function LoginForm() {
   const theme = useTheme();
+  const dispatch = useDispatch();
 
   const [login] = useLoginMutation();
 
@@ -29,21 +32,17 @@ export default function LoginForm() {
   const onSubmit = async (formData: LoginData) => {
     try {
       const response = await login(formData);
-      console.log('res', response);
       if ('error' in response) {
         // @ts-ignore
         throw Error(response.error.data);
       }
-      // if (data) {
-      //   setAuth(data.login);
-      //   navigate('/');
-      //   toast('Logged in!');
-      // }
+      if ('data' in response) {
+        dispatch(setUser(response.data));
+      }
     } catch (err: any) {
       setError('password', { message: err.message });
     }
   };
-  console.log('errs', errors);
 
   return (
     <Box component="form" name="login" onSubmit={handleSubmit(onSubmit)} sx={{ display: 'flex', flexDirection: 'column', maxWidth: '400px' }}>
